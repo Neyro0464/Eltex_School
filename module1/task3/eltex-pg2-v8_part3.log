@@ -1,0 +1,19 @@
+touch ${USER}_part3.log
+mkdir -p D1/D2/D3
+touch ~/D1/D2/file.txt
+cat > D1/D2/file.txt
+ln ~/D1/D2/file.txt ~/D1/D2/D3/file_hardlink.txt
+ln -s ~/D1/D2/file.txt ~/D1/D2/D3/file_softlink.txt
+ls -i ~/D1/D2/D3/file_softlink.txt ~/D1/D2/D3/file_hardlink.txt ~/D1/D2/file.txt
+ls -l ~/D1/D2/D3/file_softlink.txt
+cat D1/D2/D3/file_*link.txt
+mv D1/D2/file.txt D1/
+cat D1/D2/D3/*.txt
+rm -r D1/D2
+find / -type f -size +50M 2>/dev/null > ${USER}_part3_gt50M.log
+find ~/* -mtime 1 -type f
+whereis find
+which find
+file /usr/bin/find
+ls -l /boot/initrd.img*
+file /boot/initrd.img*

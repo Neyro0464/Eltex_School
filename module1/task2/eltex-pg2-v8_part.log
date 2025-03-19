@@ -1,0 +1,51 @@
+1. ls *TAB *TAB
+ls lsb_release lsinitramfs lslocks lsmod lspci
+lsattr lscpu lsipc lslogins lsns lsusb
+lsblk lsfd lsirq lsmem lsof
+
+2. echo ${!HIST*}
+HISTCMD HISTCONTROL HISTFILE HISTFILESIZE HISTSIZE HISTTIMEFORMAT
+
+3. echo ${HISTFILESIZE}
+2000
+
+4. ls -d ~/.*
+/home/eltex-pg2-v8/.bash_history
+/home/eltex-pg2-v8/.bash_logout
+/home/eltex-pg2-v8/.bashrc
+/home/eltex-pg2-v8/.config
+/home/eltex-pg2-v8/.lesshst
+/home/eltex-pg2-v8/.profile
+/home/eltex-pg2-v8/.profile.swo
+/home/eltex-pg2-v8/.profile.swp
+/home/eltex-pg2-v8/.report_part1.txt.swp
+/home/eltex-pg2-v8/.ssh
+/home/eltex-pg2-v8/.USER_part.log.swp
+/home/eltex-pg2-v8/.viminfo
+
+5. export HISTTIMEFORMAT = '%Y-%m-%d %H:%M:%S '
+
+6.1 date
+6.2 history | grep date
+cat .bash_history | grep date
+6.3 export PROMPT_COMMAND="history -a"
+6.4 cat .bash_history | grep lscpu
+history | grep lscpu
+
+7. DATE=$(date +%Y-%m-%d)
+echo $DATE
+2025-03-17
+
+8. TIME=$(date +%H:%M:%S) && echo $TIME
+16:09:55
+
+9. DATE_TIME="$DATE $TIME" && echo $DATE_TIME
+2025-03-17 16:09:55
+
+10. ls /bin/*[0-9]*; ls /sbin/*[0-9]*
+
+11. export PS1="\u@\h-$(date +%H:%M)"
+
+12. bash
+
+13. for month in {01..12}; do mkdir -p ~/$(date +%Y)-$month; done
