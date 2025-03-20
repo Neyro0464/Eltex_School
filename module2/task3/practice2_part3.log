@@ -1,0 +1,220 @@
+git config --global user.name "neyro0464"
+
+git config --global user.email zuber0464@gmail.com
+
+git config --global init.defaultBranch main
+
+apt update
+
+apt install git gh
+
+ssh-keygen -t ed25519 -f ~/.ssh/neyro0464_git
+-------------------------------------
+? What account do you want to log into? GitHub.com
+? What is your preferred protocol for Git operations on this host? SSH
+? Upload your SSH public key to your GitHub account? /root/.ssh/neyro0464_git.pub
+? Title for your SSH key: eltex_server_key
+? How would you like to authenticate GitHub CLI? Login with a web browser
+
+! First copy your one-time code: ####-####
+Press Enter to open github.com in your browser...
+! Failed opening a web browser at https://github.com/login/device
+  exec: "xdg-open,x-www-browser,www-browser,wslview": executable file not found in $PATH
+  Please try entering the URL in your browser manually
+✓ Authentication complete.
+- gh config set -h github.com git_protocol ssh
+✓ Configured git protocol
+! Authentication credentials saved in plain text
+✓ Uploaded the SSH key to your GitHub account: /root/.ssh/neyro0464_git.pub
+✓ Logged in as Neyro0464
+----------------------------------------
+
+gh auth setup-git --hostname github.com
+
+gh auth status
+-----------------------------------------
+github.com
+  ✓ Logged in to github.com account Neyro0464 (/root/.config/gh/hosts.yml)
+  - Active account: true
+  - Git operations protocol: ssh
+  - Token: gho_************************************
+  - Token scopes: 'admin:public_key', 'gist', 'read:org', 'repo'
+------------------------------------------
+
+gh repo create --public Eltex_School
+------------------------------------------
+✓ Created repository Neyro0464/Eltex_School on GitHub
+  https://github.com/Neyro0464/Eltex_School
+------------------------------------------
+
+mkdir Eltex_School && cd Eltex_School
+
+cat Eltex_School/README.md
+
+git add README.md
+
+git commit -m "First commit - Created README file"
+--------------------------------------------------
+[main (root-commit) 44ff6a4] First commit - Created README file
+ 1 file changed, 1 insertion(+)
+ create mode 100644 README.md
+---------------------------------------------------
+
+git branch -M main
+
+git remote add origin https://github.com/Neyro0464/Eltex_School
+
+git status
+----------------------------------------------
+On branch main
+nothing to commit, working tree clean
+---------------------------------------------
+
+git push -u origin main
+----------------------------------------------
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Delta compression using up to 2 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 299 bytes | 299.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/Neyro0464/Eltex_School
+ * [new branch]      main -> main
+branch 'main' set up to track 'origin/main'.
+----------------------------------------------
+
+cp eltex-pg2-v8_part* root@172.16.9.208:~/Eltex_School/module1/task1
+----------------------------------------------------------------
+root@172.16.9.208's password:
+eltex-pg2-v8_part3_gt50M.log                                                                                                                               100%   55   179.8KB/s   00:00
+eltex-pg2-v8_part3.log                                                                                                                                     100%  564     2.0MB/s   00:00
+eltex-pg2-v8_part.log 
+-----------------------------------------------------------------
+
+git add .
+
+git status
+------------------------------------------------------------
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	new file:   module1/task1/report_part1.txt
+	new file:   module1/task2/eltex-pg2-v8_part.log
+	new file:   module1/task3/eltex-pg2-v8_part3.log
+	new file:   module1/task3/eltex-pg2-v8_part3_gt50M.log
+------------------------------------------------------------
+
+git commit -m "Add files from practice1"
+------------------------------------------------------------
+[main 627a290] Add files from practice1
+ 4 files changed, 73 insertions(+)
+ create mode 100644 module1/task1/report_part1.txt
+ create mode 100644 module1/task2/eltex-pg2-v8_part.log
+ create mode 100644 module1/task3/eltex-pg2-v8_part3.log
+ create mode 100644 module1/task3/eltex-pg2-v8_part3_gt50M.log
+------------------------------------------------------------
+
+
+git push
+
+git clone https://github.com/Neyro0464/Eltex_School.git
+-------------------------------------------------------------------------
+Cloning into 'Eltex_School'...
+remote: Enumerating objects: 13, done.
+remote: Counting objects: 100% (13/13), done.
+remote: Compressing objects: 100% (10/10), done.
+remote: Total 13 (delta 0), reused 13 (delta 0), pack-reused 0 (from 0)
+Receiving objects: 100% (13/13), done.
+-------------------------------------------------------------------------
+
+git status
+-----------------------------------------------------------------------
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+------------------------------------------------------------------------
+
+git add README.md
+
+git commit -m "Changed README file"
+-----------------------------------------------------------------------
+[main 5df6727] Changed README file
+ 1 file changed, 10 insertions(+)
+root@eltex-practice2-pg2-v8:~/Eltex_School# git push
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 2 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 392 bytes | 392.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/Neyro0464/Eltex_School
+   627a290..5df6727  main -> main
+-------------------------------------------------------------------------
+
+git fetch
+--------------------------------------------------------------------------
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 3 (delta 0), pack-reused 0 (from 0)
+Unpacking objects: 100% (3/3), 372 bytes | 372.00 KiB/s, done.
+From https://github.com/Neyro0464/Eltex_School
+   627a290..5df6727  main       -> origin/main
+
+git log origin/main
+--------------------------------------------------------------------------
+commit 5df6727d629cdde77267772d8a0b0d5ae7ab8f92 (origin/main, origin/HEAD)
+Author: neyro0464 <zuber0464@gmail.com>
+Date:   Wed Mar 19 19:35:28 2025 +0000
+
+    Changed README file
+
+commit 627a2903e03cdd7f8a7068cb24c0e10f0baeb4d8 (HEAD -> main)
+Author: neyro0464 <zuber0464@gmail.com>
+Date:   Wed Mar 19 19:18:51 2025 +0000
+
+    Add files from practice1
+
+commit 44ff6a4784bb36b62a6a26af9f2392640437708a
+Author: neyro0464 <zuber0464@gmail.com>
+Date:   Wed Mar 19 18:45:16 2025 +0000
+
+    First commit - Created README file
+
+git diff main origin/main
+-------------------------------------------------------------------------
+diff --git a/README.md b/README.md
+index ae6a39d..9173794 100644
+--- a/README.md
++++ b/README.md
+@@ -1 +1,11 @@
+ # This repository is made for compliting tasks from eltex school 2025
++## Module 1:
++### Practice 1
++- task 1
++- task 2
++- task 3
++### Practice 2
++- task 1
++- task 2
++- task 3
++
+---------------------------------------------------------------------------
+
+git merge
+---------------------------------------------------------------------------
+Updating 627a290..5df6727
+Fast-forward
+ README.md | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+---------------------------------------------------------------------------
+
+
