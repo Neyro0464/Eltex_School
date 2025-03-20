@@ -1,0 +1,88 @@
+1. su - user1
+
+2. ps -eL | awk '{if ($1 != $2) count++} END {print "total: " count}'
+total: 32
+
+3. top
+press <f> to setup
+use <Up/Down> to navigate
+press <d> to activate/deactivate
+use <right arrow> to select, <Up/Down> to move and <Enter> to paste selected parameter.
+
+4. To complete this task i use another method because:
+1) I create new session using screen and Ctrl+A c. Connect to server2 and $su - user1 to enter. After it i use command passwd and return to 0 window where top is running but there are no proccess with name <passwd>
+2) I try to create new session with new putty session, result is the same
+3) further i will work witn ping ya.ru to test different kill -p
+
+5. Press <u> and enter "user1" + <Enter>.
+ps aux | grep passwd (We can't found proccess with top, so read item 4.)
+
+5.1 kill -15 <UID>
+RESULT: process Terminated
+
+5.2 kill -2 <UID>
+RESULT: --- ya.ru ping statistics ---
+All statistics which use data collected during the execution
+Ending process 
+
+5.3 kill -3 <UID>
+RESULT: Shows intermediate statistics using all the received data
+Continues the process
+
+5.4 kill -9 <UID>
+RESULT: Killed
+No information
+
+Diff kill -9 and kill -15:
+-15 is default and safe way to close process
+-9 is last resort to end process, not save data or cleaning killed proces
+
+
+6. vim task3_part1.log 
+[1]+  Stopped                 vim task3_part1.log
+
+7. sleep 600
+
+[2]+  Stopped                 sleep 600
+
+jobs
+[1]-  Stopped                 vim task3_part1.log
+[2]+  Stopped                 sleep 600
+
+8. bg %2
+[2]+ sleep 600 &
+
+jobs
+[1]+  Stopped                 vim task3_part1.log
+[2]-  Running                 sleep 600 &
+
+9. jobs -l
+[1]+ 30237 Stopped                 vim task3_part1.log
+[2]- 30248 Running                 sleep 600 &
+
+renice 10 -p 30248
+30248 (process ID) old priority 0, new priority 10
+
+10. ps -o pid,ni,comm
+    PID  NI COMMAND
+  30215   0 bash
+  30237   0 vim
+  30248  10 sleep
+  30273   0 ps
+
+11. fg %1
+
+jobs
+[2]+  Running                 sleep 600 &
+
+12.  kill -15 30248
+
+jobs
+[2]+  Terminated              sleep 600
+
+13. trap 'echo "Меня голыми руками не возьмёшь!"' SIGINT SIGQUIT
+Меня голыми руками не возьмёшь! ^C
+
+Меня голыми руками не возьмёшь! ^\
+
+trap - SIGINT SIGQUIT
