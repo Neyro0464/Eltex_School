@@ -1,5 +1,6 @@
 *.o
 *.lib
 *.a
-/.vscode
-*/build/
+.vscode/
+*build/
+*.out
