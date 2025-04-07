@@ -16,7 +16,6 @@ int main()
 		printf("\t3) Delete a contact from the databsase.\n");
 		printf("\t4) Output database (general info).\n");
         printf("\t5) Output database (all info).\n");
-        printf("\t9) Download testing database.\n");
         printf("\t0) Exit programm.\n");
         printf("\tEnter the function: ");
 
@@ -43,8 +42,6 @@ int main()
             case 5:
                 OutputTable(dataBase, 1);
                 break;
-            case 9:
-                break;
             case 0:
                 flag = 0;
                 break;
@@ -53,6 +50,6 @@ int main()
                 break;
         }
     }
-    printf("Programm successfully finished");
+    printf("Programm successfully finished\n");
     
 }

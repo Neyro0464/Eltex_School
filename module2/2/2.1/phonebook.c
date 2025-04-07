@@ -8,7 +8,26 @@ void InitializingTable(PersonInfo *dataBase)
 	    {
 		   ClearContact(&dataBase[i]);
 	    }
+		AddStartData(dataBase);
     }
+}
+
+void AddStartData(PersonInfo* dataBase){
+	for(int i = 0; i < 3; i++){
+		dataBase[i].id = i + 1;
+		char dt[1]; 
+		dt[0] = i + 1 + '0';
+		strncpy(dataBase[i].antroponym.firstName, dt, 20);
+		strncpy(dataBase[i].antroponym.lastName, dt, 20); 
+		strncpy(dataBase[i].antroponym.patronymic, dt, 20); 
+		strncpy(dataBase[i].phoneNumber, dt, 12); 
+		strncpy(dataBase[i].email, dt, 20); 
+		strncpy(dataBase[i].work.post, dt, 20); 
+		strncpy(dataBase[i].work.placeOfWork, dt, 20);
+		strncpy(dataBase[i].messenger.VKlink, dt, 20);
+		strncpy(dataBase[i].messenger.TGlink, dt, 20);
+		printf("The contact has been added to the table.\n");
+	}
 }
 
 void ClearContact(PersonInfo* person){
@@ -40,6 +59,7 @@ void AddInBook(PersonInfo* dataBase, PersonInfo* personalInf)
 			strncpy(dataBase[i].messenger.TGlink, personalInf->messenger.TGlink, 20);
 			statusExit = 1;
 			printf("The contact has been added to the table.\n");
+			ClearContact(personalInf);
 		}
 	}
 	if(statusExit == -1)
@@ -125,35 +145,35 @@ void DeleteInTable(PersonInfo *dataBase)
 	else
 		printf("Unknown contact!\n");
 }
-int FindRowInBook(PersonInfo* dataBase, Antroponym tmpAntroponym){
-	char buf[64];
-	int resIndex[BOOKSIZE];
-	int j = 0;
-	for(int i = 0; i < BOOKSIZE; i++)
-	{
-		if(strncmp(dataBase[i].antroponym.firstName, tmpAntroponym.firstName, 20) == 0){
-			if(strncmp(dataBase[i].antroponym.lastName, tmpAntroponym.lastName, 20) == 0){
-				if(strncmp(dataBase[i].antroponym.patronymic, tmpAntroponym.patronymic, 20) == 0){
-					resIndex[j] = i;
-					j++;	
-				}
+int FindRowInBook(PersonInfo* dataBase, Antroponym tmpAntroponym) {
+    char buf[64];
+    int resIndex[BOOKSIZE];
+    int j = 0;
+
+    for (int i = 0; i < BOOKSIZE; i++) {
+        if (strcmp(dataBase[i].antroponym.firstName, tmpAntroponym.firstName) == 0 &&
+            strcmp(dataBase[i].antroponym.lastName, tmpAntroponym.lastName) == 0 &&
+            strcmp(dataBase[i].antroponym.patronymic, tmpAntroponym.patronymic) == 0) {
+            if (j < BOOKSIZE) {
+                resIndex[j] = i;
+                j++;
 			}
-		}
-		dataBase = dataBase + 1;
-	}
-	if (j > 1){
-		printf("Enter your phone number.\n");
-		scanf("%s", buf);
-		for(int i = 0; i < j; i++){
-			if(strncmp(dataBase[resIndex[i]].phoneNumber, buf, 20) == 0){
-				return resIndex[i];
-			}
-		}
-	}
-	else if(j == 1){
-		return resIndex[0];
-	}
-	return -1;
+        }
+    }
+
+    if (j == 1) {
+        return resIndex[0];
+    } else if (j > 1) {
+		OutputTable(dataBase, 1);
+		printf("Choose person's id: ");
+        scanf("%63s", buf);
+        for (int i = 0; i < j; i++) {
+            if (strcmp(dataBase[resIndex[i]].id, buf) == 0) {
+                return resIndex[i];
+            }
+        }
+    }
+    return -1;
 }
 
 void EditPersonData(PersonInfo* dataBase){

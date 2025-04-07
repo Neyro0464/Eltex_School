@@ -35,6 +35,9 @@ typedef struct PersonInfo{
 
 } PersonInfo;
 
+
+void AddStartData(PersonInfo*);
+
 /*
 ### Function initializing array of struct PersonInfo by fiiling all fields with 'zero' values
 */
@@ -43,11 +46,7 @@ void InitializingTable(PersonInfo *);
 ### Function that filling all fields with 'zero values
 */
 void ClearContact(PersonInfo*);
-/*
-# IN PROGRESS
-### Function that fils phonebook with some rows to test functionality
-*/
-void uploadBook(PersonInfo*);
+
 /*
 ### Function that fiiling one row in the phonebook from console
 */
