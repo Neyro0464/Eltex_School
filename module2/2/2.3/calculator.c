@@ -1,64 +1,68 @@
 #include <stdio.h>
+#include <string.h>
 
-double add(double x, double y)
-{
-    return x+y;
-}
+typedef struct Command{
+    char name[16];
+    char description[64];
+    double (*func) (double, double);
+} Command;
 
-double min(double x, double y)
-{
-    return x-y;
-}
+double add(double x, double y){return x+y;}
+double min(double x, double y){return x-y;}
+double mult(double x, double y){return x*y;}
+double div(double x, double y){return x/y;}
 
-double mult(double x, double y)
-{
-    return x*y;
-}
-
-double div(double x, double y)
-{
-    return x/y;
+void show_help(Command* commands, int size) {
+    
+    for (int i = 0; i < size; i++) {
+        fprintf(stderr, "> %s - %s\n", commands[i].name, commands[i].description);
+    }
+    printf("> help - Print \n");
+    printf("> exit - \n");
 }
 
 
 void StartCalculator()
 {
-    int statusExit = -1, option;
-    double (*operations[4])(double, double) = {add, min, mult, div};
+    Command commands[] = {
+        {"add", "sum 2 values", add},
+        {"sub", "1st value minus 2nd value", min},
+        {"mult", "1st value multiplication on 2nd value ", mult},
+        {"div", "1st value devided by 2nd value", div}
+    };
+    int N = sizeof(commands) / sizeof(Command);
+    show_help(commands, N);
+
+    int statusExit = -1;
+    char option[16];
+    memset(option, '\0', sizeof(option));
     double a, b;
-    printf("Calculator-Program\n");
+
     while(statusExit != 1)
     {
+        fprintf(stderr, "Enter command: ");
+        scanf("%s", option);
+
+        if(strcmp(option, "exit") == 0){
+            statusExit = 1;
+            break;
+        }
+        if(strcmp(option, "help") == 0){
+            show_help(commands, N);
+            continue;;
+        }
+        
         printf("Enter two real numbers:\n");
         scanf("%lf %lf", &a, &b);
-        printf("1) Addition\n");
-        printf("2) Minus\n");
-        printf("3) Multiplication\n");
-        printf("4) Division\n");
-        printf("0) Exit the application\n");
-        scanf("%d", &option);
-        switch(option)
-        {
-            case 1:
-                printf("a + b = %lf\n", operations[0](a, b));
-                break;
-            case 2:
-                printf("a - b = %lf\n", operations[1](a, b));
-                break;
-            case 3:
-                printf("a * b = %lf\n", operations[2](a, b));
-                break;
-            case 4:
-                printf("a / b = %lf\n", operations[3](a, b));
-                break;
-            case 0:
-                statusExit = 1;
-                continue; 
-            default:
-                printf("Wrong menu section!\n");
-                continue;
+        for(int i = 0; i < N; i++){
+            if(strcmp(option, commands[i].name) == 0){
+                double res = commands[i].func(a,b);
+                fprintf(stderr, "Result: %lf\n", res);
+            }
         }
+        memset(option, '\0', sizeof(option));
     }
+    return;
 }
 int main()
 {

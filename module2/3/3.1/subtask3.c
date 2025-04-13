@@ -23,52 +23,75 @@ int UgoParse(char *inputString, int filemask)
     int flagU = 0, flagG = 0, flagO = 0;
     int flagR = 0, flagW = 0, flagX = 0;
     int operator = -1;
+    int pos = 0;
     int (*operations[]) (int, int) = {add, sub, eq};
-    for (int i = 0; i < strlen(inputString) - 1; i++)
-    {
-        switch (inputString[i])
+    while(inputString[pos] == 'u' || inputString[pos] == 'g' || inputString[pos] == 'o'){
+        switch (inputString[pos])
         {
         case 'u':
             flagU = 1;
+            pos++;
             break;
         case 'g':
             flagG = 1;
+            pos++;
             break;
         case 'o':
             flagO = 1;
+            pos++;
             break;
-        case 'r':
-            flagR = 1;
-            break; 
-        case 'w':
-            flagW = 1;
-            break; 
-        case 'x':
-            flagX = 1;
-            break; 
-        case '+':
-            operator = 0;
-            break; 
-        case '-':
-            operator = 1;
-            break; 
-        case '=':
-            operator = 2;
-            break; 
         default:
-            fprintf(stderr, "Incorrect \"ugo\"-format\n");
-            return -1;
             break;
         }
+        
     }
-    if(operator == -1)
-    {
-        fprintf(stderr, "The operator is lost\n");
+    if(flagU != 1 && flagG != 1 && flagO != 1){
+        printf("Incorrect \"ugo\"-format\n");
         return -1;
     }
-    if(flagU == 0 && flagG == 0 && flagO == 0)
+    switch (inputString[pos])
     {
-        fprintf(stderr, "Not entered ugo\n");
+    case '+':
+        operator = 0;
+        pos++;
+        break;
+    case '-':
+        operator = 1;
+        pos++;
+        break;
+    case '=':
+        operator = 2;
+        pos++;
+        break;
+    default:
+        break;
+    }
+    if(operator == -1){
+        printf("Incorrect operator\n");
+        return -1;
+    }
+    while(inputString[pos] == 'r' || inputString[pos] == 'w' || inputString[pos] == 'x'){
+        switch (inputString[pos])
+        {
+        case 'r':
+            flagR = 1;
+            pos++;
+            break;
+        case 'w':
+            flagW = 1;
+            pos++;
+            break;
+        case 'x':
+            flagX = 1;
+            pos++;
+            break;
+        default:
+            break;
+        }
+        
+    }
+    if(flagR != 1 && flagW != 1 && flagX != 1){
+        printf("Incorrect \"rwx\"-format\n");
         return -1;
     }
     if(flagR == 1) rwxMask |= (1 << 2);
@@ -80,7 +103,12 @@ int UgoParse(char *inputString, int filemask)
     if(flagO == 1) ugoRwxMask |= rwxMask;
 
     double res = operations[operator](filemask, ugoRwxMask);
+
     PrintBits(res);
+    printf("\t");
+    PrintLetter(res);
+    printf(" ");
+    PrintNum(res);
     printf("\n");
     return res;
 }
@@ -107,6 +135,11 @@ int NumParse(char *inputString, int filemask)
         rwxMask |= right << (6 - (2 * i) - i);
     }
     PrintBits(rwxMask);
+    printf("\t");
+    PrintLetter(rwxMask);
+    printf(" ");
+    PrintNum(rwxMask);
+
     printf("\n");
 
     return rwxMask;
